@@ -56,6 +56,7 @@
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary" value="作成">
+                   
                 </form>
             </div>
         </div>

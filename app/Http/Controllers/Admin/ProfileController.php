@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Profile;
+use App\HistoryPro;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -53,10 +55,34 @@ public function edit(Request $request)
 
       // 該当するデータを上書きして保存する
       $profile->fill($profile_form)->save();
+      
+      
+      $history_pro = new HistoryPro;
+        $history_pro->profile_id = $profile->id;
+        $history_pro->edited_at = Carbon::now();
+        $history_pro->save();
 
       return redirect('admin/profile');
   }
   
-    
+    public function index(Request $request)
+  {
+      $cond_name = $request->cond_name;
+      if ($cond_name != '') {
+          $posts = Profile::where('name', $cond_name)->get();
+      } else {
+          $posts = Profile::all();
+      }
+      return view('admin.profile.index', ['posts' => $posts, 'cond_name' => $cond_name]);
+  }
+  
+  public function delete(Request $request)
+  {
+      // 該当するNews Modelを取得
+      $profile = profile::find($request->id);
+      // 削除する
+      $profile->delete();
+      return redirect('admin/profile/');
+  }  
     
 }
