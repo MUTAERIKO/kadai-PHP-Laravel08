@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <h2>プロフィール新規作成</h2>
-                <form action="{{ action('Admin\ProfileController@create') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ action('Admin\ProfileController@update') }}" method="post" enctype="multipart/form-data">
 @csrf
                     @if (count($errors) > 0)
                         <ul>
@@ -52,9 +52,13 @@
                     <div class="form-group row">
                         <label class="col-md-2" for="introduction">自己紹介</label>
                         <div class="col-md-10">
-                            <textarea class="form-control" name="introduction" rows="20">{{ $profile_form->introduce }}</textarea>
+                            <textarea class="form-control" name="introduction" rows="20">{{ $profile_form->introduction }}</textarea>
                         </div>
                     </div>
+                    <input type="hidden" name="id" value="{{ $profile_form->id }}">
+                
+                    
+                    
                     <input type="submit" class="btn btn-primary" value="作成">
                    
                 </form>
