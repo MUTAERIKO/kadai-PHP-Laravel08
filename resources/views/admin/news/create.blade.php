@@ -23,7 +23,6 @@
                 <h2>ニュース新規作成（面白いタイトル希望）</h2>
                 <form action="{{ action('Admin\NewsController@create') }}" method="post" enctype="multipart/form-data">
 
-@csrf
 
                     @if (count($errors) > 0)
                         <ul>
